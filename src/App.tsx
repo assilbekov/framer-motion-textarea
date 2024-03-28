@@ -13,14 +13,24 @@ function App() {
         className="min-h-60 bg-neutral-900 text-slate-100 font-spaceGrotesk whitespace-pre-wrap text-xl min-w-full p-5 overflow-x-hidden"
         onClick={() => textareaRef.current!.focus()}
       >
-        {val.split("").map((letter, i) => (
-          <motion.span 
-          key={i}
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={letter !== "\n" ? "inline-block mr-0.5" : "inline"}
-          >{letter}</motion.span>
-        ))}
+        <AnimatePresence>
+          {val.split("").map((letter, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{
+                opacity: 0,
+                y: 100,
+                transition: {
+                  duration: 0.5,
+                },
+
+              }}
+              className={letter !== "\n" ? "inline-block mr-0.5" : "inline"}
+            >{letter}</motion.span>
+          ))}
+        </AnimatePresence>
       </div>
     </main>
   )
